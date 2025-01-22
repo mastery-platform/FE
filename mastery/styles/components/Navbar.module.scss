@@ -1,0 +1,27 @@
+.navbar {
+  display: flex;
+  justify-content: center; /* Center the navbar content */
+  align-items: center;
+  padding: 1rem;
+  background-color: #ffffff; /* White background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for better separation */
+  border-bottom: 1px solid #ddd;
+
+  .navLinks {
+    display: flex;
+    gap: 2rem; /* Space between links */
+  }
+
+  .link {
+    text-decoration: none; /* Remove underline */
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333; /* Dark text color */
+    transition: color 0.2s ease, border-bottom 0.2s ease;
+
+    &:hover {
+      color: #007bff; /* Blue on hover */
+      border-bottom: 2px solid #007bff; /* Underline on hover */
+    }
+  }
+}
