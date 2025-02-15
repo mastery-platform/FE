@@ -7,31 +7,28 @@ import API from "../utils/axios";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // Current logged-in user
-  const [users, setUsers] = useState([]); // List of all users (for admin)
-  const [loading, setLoading] = useState(false); // Loading state
+  const [user, setUser] = useState(null);
+  const [users, setUsers] = useState([]); // Admin-only
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // Load user from the token on app load
+  // Load user on app load
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
+      API.defaults.headers.Authorization = `Bearer ${token}`; // Attach token
       fetchUser();
     }
   }, []);
 
-  // Fetch the logged-in user details
+  // Fetch logged-in user details
   const fetchUser = async () => {
     try {
       const { data } = await API.get("/users/me");
-      setUser(data); // Set the logged-in user's data
+      setUser(data);
     } catch (error) {
-      console.error(
-        "Failed to fetch user:",
-        error.response?.data?.message || error.message
-      );
-      localStorage.removeItem("token"); // Clear invalid token
-      setUser(null);
+      console.error("Failed to fetch user:", error.response?.data?.message || error.message);
+      logout(); // Auto logout if token is invalid
     }
   };
 
@@ -39,19 +36,14 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password) => {
     try {
       setLoading(true);
-      const { data } = await API.post("/users/register", {
-        name,
-        email,
-        password,
-      });
-      localStorage.setItem("token", data.token); // Store JWT token
-      await fetchUser(); // Fetch the user's data
-      router.push("/"); // Redirect to home
+      const { data } = await API.post("/users/register", { name, email, password });
+
+      localStorage.setItem("token", data.token);
+      API.defaults.headers.Authorization = `Bearer ${data.token}`; // Attach token
+      await fetchUser();
+      router.push("/dashboard"); // Redirect to dashboard
     } catch (error) {
-      console.error(
-        "Registration failed:",
-        error.response?.data?.message || error.message
-      );
+      console.error("Registration failed:", error.response?.data?.message || error.message);
     } finally {
       setLoading(false);
     }
@@ -62,89 +54,66 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const { data } = await API.post("/users/login", { email, password });
-      localStorage.setItem("token", data.token); // Store JWT token
-      await fetchUser(); // Fetch the user's data
-      router.push("/"); // Redirect to home
+
+      localStorage.setItem("token", data.token);
+      API.defaults.headers.Authorization = `Bearer ${data.token}`;
+      await fetchUser();
+      router.push("/dashboard");
     } catch (error) {
-      console.error(
-        "Login failed:",
-        error.response?.data?.message || error.message
-      );
+      console.error("Login failed:", error.response?.data?.message || error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  // Logout the user
+  // Logout user
   const logout = () => {
-    localStorage.removeItem("token"); // Remove JWT token
-    setUser(null); // Clear user state
-    router.push("/login"); // Redirect to login
+    localStorage.removeItem("token");
+    setUser(null);
+    API.defaults.headers.Authorization = null;
+    router.push("/login");
   };
 
-  // Fetch all users (for admin only)
+  // Fetch all users (Admin only)
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const { data } = await API.get("/users"); // Fetch users from backend
-      setUsers(data); // Set users data
+      const { data } = await API.get("/users");
+      setUsers(data);
     } catch (error) {
-      console.error(
-        "Failed to fetch users:",
-        error.response?.data?.message || error.message
-      );
+      console.error("Failed to fetch users:", error.response?.data?.message || error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  // Update a user's details (for admin or user self-update)
+  // Update a user
   const updateUser = async (id, updatedData) => {
     try {
-      const { data } = await API.put(`/users/${id}`, updatedData);
-      if (user?._id === id) {
-        setUser(data); // Update logged-in user data if applicable
-      }
-      await fetchUsers(); // Refresh users list for admin
+        const { data } = await API.put(`/users/${id}`, updatedData);
+        setUser(data); // Update logged-in user data
     } catch (error) {
-      console.error(
-        "Failed to update user:",
-        error.response?.data?.message || error.message
-      );
+        console.error("Failed to update user:", error.response?.data?.message || error.message);
     }
-  };
+};
 
-  // Delete a user (for admin only)
+
+  // Delete a user (Admin only)
   const deleteUser = async (id) => {
     try {
       await API.delete(`/users/${id}`);
-      await fetchUsers(); // Refresh users list for admin
+      await fetchUsers();
     } catch (error) {
-      console.error(
-        "Failed to delete user:",
-        error.response?.data?.message || error.message
-      );
+      console.error("Failed to delete user:", error.response?.data?.message || error.message);
     }
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        users,
-        loading,
-        register,
-        login,
-        logout,
-        fetchUsers,
-        updateUser,
-        deleteUser,
-      }}
-    >
+    <AuthContext.Provider value={{ user, users, loading, register, login, logout, fetchUsers, updateUser, deleteUser }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Custom hook to access AuthContext
+// Custom hook for authentication
 export const useAuth = () => useContext(AuthContext);
