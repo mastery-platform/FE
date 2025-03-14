@@ -1,27 +1,33 @@
 .navbar {
   display: flex;
-  justify-content: center; /* Center the navbar content */
   align-items: center;
-  padding: 1rem;
-  background-color: #ffffff; /* White background */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for better separation */
-  border-bottom: 1px solid #ddd;
+  padding: 15px 20px;
+  background-color: #2c2c2c; // Slightly lighter charcoal
+  color: #e0e0e0;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
 
-  .navLinks {
-    display: flex;
-    gap: 2rem; /* Space between links */
-  }
+.navbar a {
+  color: #bb86fc; // Soft purple for links
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
 
-  .link {
-    text-decoration: none; /* Remove underline */
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333; /* Dark text color */
-    transition: color 0.2s ease, border-bottom 0.2s ease;
+.navbar a:hover {
+  color: #ffffff; // White on hover
+}
 
-    &:hover {
-      color: #007bff; /* Blue on hover */
-      border-bottom: 2px solid #007bff; /* Underline on hover */
-    }
-  }
+.navbar button {
+  background: #bb86fc;
+  color: #1e1e1e;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.navbar button:hover {
+  background: #9a67ea;
 }

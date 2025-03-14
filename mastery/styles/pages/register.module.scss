@@ -1,9 +1,0 @@
-@import "./login.module.scss"; // ✅ Import styles from login page
-
-.container {
-    @extend .container;
-}
-
-.registerButton {
-    @extend .button;
-}

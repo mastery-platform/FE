@@ -1,0 +1,93 @@
+// 🎨 Color Variables
+$background: #1e1e2f;
+$charcoal: #282a36;
+$purple: #a97bff;
+$text-light: #ffffff;
+$text-muted: #b0b0b0;
+$border: #444;
+$hover-purple: #906cff;
+
+// 🌎 Page Container
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: $charcoal;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+// 🏠 Heading Styles
+.heading {
+  text-align: center;
+  font-size: 24px;
+  color: $text-light;
+  margin-bottom: 15px;
+}
+
+// 📋 Step Styling
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background: $background;
+  border-radius: 8px;
+  border: 1px solid $border;
+}
+
+// 🔹 FIX: Ensure inputs are properly styled inside a scoped `.inputGroup`
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input {
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid $border;
+  background: #333;
+  color: $text-light;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.3s ease-in-out;
+
+  &:focus {
+    border: 1px solid $purple;
+  }
+}
+
+// 🔹 FIX: Scoped button styles
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  padding: 12px;
+  font-size: 16px;
+  background: $purple;
+  color: $text-light;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+
+  &:hover {
+    background: $hover-purple;
+  }
+}
+
+// ❌ Error Message
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
+}

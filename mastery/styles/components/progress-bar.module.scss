@@ -1,0 +1,27 @@
+.loaderContainer {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background: #2a2a3c;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #6c63ff, #a855f7);
+  transition: width 0.3s ease-in-out;
+}
+
+.progressText {
+  /* ✅ Added a local class */
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  color: white;
+}

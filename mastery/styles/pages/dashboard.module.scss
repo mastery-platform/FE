@@ -1,38 +1,149 @@
+// 🎨 Color Variables
+$background: #1e1e2f;
+$charcoal: #282a36;
+$purple: #a97bff;
+$text-light: #ffffff;
+$text-muted: #b0b0b0;
+$border: #444;
+$hover-purple: #906cff;
+$danger: #ff4d4d;
+
+// 🌎 Global Styles
 .container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: $charcoal;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
 
-    h1 {
-        margin-bottom: 10px;
-    }
+// 🏠 Header Styles
+.heading {
+  text-align: center;
+  font-size: 24px;
+  color: $text-light;
+  margin-bottom: 15px;
+}
 
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
+.subheading {
+  text-align: center;
+  font-size: 18px;
+  color: $text-muted;
+  margin-bottom: 20px;
+}
 
-    input {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
+// 📝 Skill Form Styles
+.skillForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background: $background;
+  border-radius: 8px;
+  border: 1px solid $border;
+}
 
-    .button {  /* ✅ Wrap button inside a class */
-        background-color: #0070f3;
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-    .button:hover {
-        background-color: #005bb5;
-    }
+.input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid $border;
+  background: #333;
+  color: $text-light;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.3s ease-in-out;
+
+  &:focus {
+    border: 1px solid $purple;
+  }
+}
+
+// ➕ Add Button
+.addButton {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background: $purple;
+  color: $text-light;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+
+  &:hover {
+    background: $hover-purple;
+  }
+}
+
+// 📋 Skill List
+.skillList {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.skillItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2c2e3a;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: 1px solid $border;
+}
+
+.skillDetails {
+  font-size: 16px;
+  color: $text-light;
+}
+
+// 🛠️ Action Buttons (Edit & Delete)
+.actionButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.editButton,
+.deleteButton {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.editButton {
+  background: $purple;
+  color: $text-light;
+
+  &:hover {
+    background: $hover-purple;
+  }
+}
+
+.deleteButton {
+  background: $danger;
+  color: $text-light;
+
+  &:hover {
+    background: darken($danger, 10%);
+  }
+}
+
+// ❌ No Skills Message
+.noSkills {
+  text-align: center;
+  color: $text-muted;
+  font-size: 16px;
+  margin-top: 10px;
 }

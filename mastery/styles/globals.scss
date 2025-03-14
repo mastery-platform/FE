@@ -1,24 +1,38 @@
-// Example global styles
-@import "./variables";
-
-// Global resets or imports
+// 🌙 Global Dark Theme (Charcoal & Purple Shades)
+html,
 body {
+  height: 100%;
   margin: 0;
+  padding: 0;
+  background-color: #1e1e1e; // Charcoal background
+  color: #e0e0e0; // Light text
   font-family: "Arial", sans-serif;
-  background-color: #f8f9fa;
-  color: #333;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+// ✅ Layout structure for the app
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
+.content {
+  flex: 1; // Pushes footer down
+  padding: 20px;
+}
+
+// ✅ Button styles (Used across the app)
+button {
+  background: #bb86fc;
+  color: #1e1e1e;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #9a67ea;
 }
